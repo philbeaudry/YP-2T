@@ -23,7 +23,7 @@ def find_business(sentence):
   sentence = requests.get(JSONrequest % sentence)
   sentence = sentence.json()
   try:
-    sentence = "http://www.yellowpages.ca/bus/Quebec/Montreal/Yellow-Pages/%s.html Checkout %s at %s %s, %s %s!" % (sentence['listings'][0]['id'], sentence['listings'][0]['name'], sentence['listings'][0]['address']['street'], sentence['listings'][0]['address']['city'], sentence['listings'][0]['address']['prov'], sentence['listings'][0]['address']['pcode'])
+    sentence = "http://www.yellowpages.ca/bus/Quebec/Montreal/Yellow-Pages/%s.html Checkout %s at %s!" % (sentence['listings'][0]['id'], sentence['listings'][0]['name'], sentence['listings'][0]['address']['pcode'])
   except:
     sentence = "Couldn't find anything on Yellow Pages!"
   return sentence
