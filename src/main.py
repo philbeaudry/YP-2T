@@ -1,3 +1,5 @@
+# THIS CODE WAS WRITTEN QUICKLY AT A HACKATHON. DOES NOT FOLLOW PROPER CODING CONVENTIONS.
+
 import tweepy
 from monkeylearn import MonkeyLearn
 import time
