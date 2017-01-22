@@ -23,7 +23,7 @@ def find_business(sentence):
   sentence = requests.get(JSONrequest % sentence)
   sentence = sentence.json()
   try:
-    sentence = "http://www.yellowpages.ca/bus/Quebec/Montreal/Yellow-Pages/%s.html Checkout %s at %s %s, %s %s!" % (sentence['listings'][0]['id'], sentence['listings'][0]['name'], sentence['listings'][0]['address']['street'], sentence['listings'][0]['address']['city'], sentence['listings'][0]['address']['prov'], sentence['listings'][0]['address']['pcode'])
+    sentence = "http://www.yellowpages.ca/bus/Quebec/Montreal/Yellow-Pages/%s.html Checkout %s at %s!" % (sentence['listings'][0]['id'], sentence['listings'][0]['name'], sentence['listings'][0]['address']['street'])
   except:
     sentence = "Couldn't find anything on Yellow Pages!"
   return sentence
@@ -88,7 +88,7 @@ def check_tweets():
     reply_text = find_keyword(reply_text)
     reply_text = find_business(reply_text)
     reply_text = reference_author(tweet.author.screen_name, reply_text)
-    reply_text = cut_to_140_chars(reply_text)
+    # reply_text = cut_to_140_chars(reply_text)
 
     print(reply_text)
 
@@ -98,7 +98,13 @@ def check_tweets():
       already_replied_file.write("%s\n" % tweet.id)
       already_replied_file.flush()
     except:
-      print("FAILED TO REPLY TO TWEET!")
+      try:
+        # Add tweet id to list of replied tweets
+        already_replied_file.write("%s\n" % tweet.id)
+        already_replied_file.flush()
+      except:
+        print("Error: Failed to list tweet.")
+      print("Error: Failed to reply to tweet.")
 
     time.sleep(3)
 
