@@ -8,8 +8,8 @@ ml = MonkeyLearn('47dde3e5ab73adb5379ca8b71d1f47d03befa89f')
 module_id = 'ex_y7BPYzNG'
 
 # Tweepy Credentials
-auth = tweepy.OAuthHandler("Z0FJOWBHhYDv3Hn5cYyJ22EnY", "JnpbFUKF7IRJcCgm7C7GHJN6QTOtL2wY7crNnGtOb0xRJi3Eat")
-auth.set_access_token("822933243880243200-LTlKtstwQ5M4Vghd3NdAWd7VZDFKZMU", "iS5TZMZ2TzLnHxrwB7vF2tQAcUJ6jIq8yR9S7vlSDTh4c")
+auth = tweepy.OAuthHandler("2Uxy8KpZzRvGtuAPvrSN4TZDs", "irNuDUG1IZvYztcGAWY9XfDq6RPAjXS75djdaOBJYPKbbYPc5v")
+auth.set_access_token("822933243880243200-6VQTFBUab7mjgAlQKfXAb4gYZJnHR1X", "jqr7fHhHS7xPtOzr4QCKfQO7BlT6vXvAj2cIYx87esfbI")
 
 JSONrequest = "http://api.sandbox.yellowapi.com/FindBusiness/?what=%s&where=Montreal&pgLen=1&pg=1&dist=1&fmt=JSON&lang=en&UID=172.31.109.198&apikey=tst3bbg2kzkdgnscystpbk6j"
 
@@ -81,11 +81,12 @@ def check_tweets():
     if is_a_reply(tweet.text) or have_replied(tweet.id):
       continue
 
-    print("Replying to %s (%s):" % (tweet.text, tweet.id_str))
+    print("Replying to %s (%s): " % (tweet.text, tweet.id_str))
 
     reply_text = tweet.text
     reply_text = remove_tags(reply_text)
     reply_text = find_keyword(reply_text)
+    print("Detected keywords: %s" % reply_text)
     reply_text = find_business(reply_text)
     reply_text = reference_author(tweet.author.screen_name, reply_text)
     # reply_text = cut_to_140_chars(reply_text)
