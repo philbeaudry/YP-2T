@@ -8,8 +8,8 @@ YP-2T searches tweets containing the #askYP hashtag. It parses the tweet and inp
 We wrote a python script that runs on a server that periodically checks Twitter search for updates using the Twitter REST API. This script uses the MonkeyLearn machine learning platform to extract keywords from the tweet. These keywords are inputted into the YellowPages API, and the result is returned via a Twitter reply on the initial tweet.
 
 ## Challenges we ran into
-* Learning the different APIs. We used a total of three for this project (YellowPages, MonkeyLearn and Twitter REST). We ran into many bugs before getting this platforms working.
-* The 140 character tweet limit. Ensuring not to pass to pass this limit and parsing accordingly.
+* Learning the different APIs. We used a total of three for this project (YellowPages, MonkeyLearn and Twitter REST). We ran into many bugs before getting these platforms working.
+* The 140 character tweet limit. Ensuring not to pass this limit and parsing accordingly.
 * Our twitter account got blocked twice because we were sending too many requests.
 * One of the team members fell sick with the flu.
 
