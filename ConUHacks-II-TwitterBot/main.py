@@ -23,7 +23,7 @@ def find_business(sentence):
   sentence = requests.get(JSONrequest % sentence)
   sentence = sentence.json()
   try:
-    sentence = "http://www.yellowpages.ca/bus/Quebec/Montreal/Yellow-Pages/%s.html Checkout %s at %s!" % (sentence['listings'][0]['id'], sentence['listings'][0]['name'], sentence['listings'][0]['address']['pcode'])
+    sentence = "http://www.yellowpages.ca/bus/Quebec/Montreal/Yellow-Pages/%s.html Checkout %s at %s %s, %s %s!" % (sentence['listings'][0]['id'], sentence['listings'][0]['name'], sentence['listings'][0]['address']['street'], sentence['listings'][0]['address']['city'], sentence['listings'][0]['address']['prov'], sentence['listings'][0]['address']['pcode'])
   except:
     sentence = "Couldn't find anything on Yellow Pages!"
   return sentence
@@ -56,6 +56,10 @@ def is_a_reply(sentence):
 
 def remove_tags(sentence):
   sentence = sentence.split(' ')
+  try:
+    sentence = sentence.remove('')
+  except:
+    pass
   indexes_to_delete = []
   for word in sentence:
     # Detect indexes to delete
@@ -76,6 +80,8 @@ def check_tweets():
     # Skip if this is a reply tweet
     if is_a_reply(tweet.text) or have_replied(tweet.id):
       continue
+
+    print("Replying to %s (%s):" % (tweet.text, tweet.id_str))
 
     reply_text = tweet.text
     reply_text = remove_tags(reply_text)
