@@ -8,8 +8,8 @@ ml = MonkeyLearn('47dde3e5ab73adb5379ca8b71d1f47d03befa89f')
 module_id = 'ex_y7BPYzNG'
 
 # Tweepy Credentials
-auth = tweepy.OAuthHandler("2Uxy8KpZzRvGtuAPvrSN4TZDs", "irNuDUG1IZvYztcGAWY9XfDq6RPAjXS75djdaOBJYPKbbYPc5v")
-auth.set_access_token("822933243880243200-6VQTFBUab7mjgAlQKfXAb4gYZJnHR1X", "jqr7fHhHS7xPtOzr4QCKfQO7BlT6vXvAj2cIYx87esfbI")
+auth = tweepy.OAuthHandler("mhgzFH5mFblLsHZ6YNpf0bpId", "qVNCRv1vsnrIAgpwWTeuFXC6HtFflMhOBGi8uN1VcoWRbuNL4L")
+auth.set_access_token("822933243880243200-9cDhEh7wuKLHGL8f5WiawVQcMsSqQZG", "vHFu6QrGGe4xm3Q8bKZGOx9irYxIlwZvf1WVcBxGrEqPF")
 
 JSONrequest = "http://api.sandbox.yellowapi.com/FindBusiness/?what=%s&where=Montreal&pgLen=1&pg=1&dist=1&fmt=JSON&lang=en&UID=172.31.109.198&apikey=tst3bbg2kzkdgnscystpbk6j"
 
@@ -23,7 +23,10 @@ def find_business(sentence):
   sentence = requests.get(JSONrequest % sentence)
   sentence = sentence.json()
   try:
-    sentence = "http://www.yellowpages.ca/bus/Quebec/Montreal/Yellow-Pages/%s.html Checkout %s at %s!" % (sentence['listings'][0]['id'], sentence['listings'][0]['name'], sentence['listings'][0]['address']['street'])
+    if sentence['listings'][0]['address']['street']:
+        sentence = "http://www.yellowpages.ca/bus/Quebec/Montreal/Yellow-Pages/%s.html Checkout %s at %s!" % (sentence['listings'][0]['id'], sentence['listings'][0]['name'], sentence['listings'][0]['address']['street'])
+    else:
+      sentence = "http://www.yellowpages.ca/bus/Quebec/Montreal/Yellow-Pages/%s.html Checkout %s!" % (sentence['listings'][0]['id'], sentence['listings'][0]['name'])
   except:
     sentence = "Couldn't find anything on Yellow Pages!"
   return sentence
@@ -57,7 +60,7 @@ def is_a_reply(sentence):
 def remove_tags(sentence):
   sentence = sentence.split(' ')
   try:
-    sentence = sentence.remove('')
+    sentence.remove('')
   except:
     pass
   indexes_to_delete = []
